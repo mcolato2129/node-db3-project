@@ -138,7 +138,20 @@ function findSteps(scheme_id) { // EXERCISE C
           "scheme_name": "Get Rich Quick"
         }
       ]
+      SELECT
+    step_id, step_number, instructions , scheme_name
+    FROM schemes as sc
+    LEFT JOIN steps as st
+    ON sc.scheme_id = st.scheme_id
+    WHERE sc.scheme_id = 1
+    ORDER BY step_number
   */
+  return db('schemes as sc')
+  .leftJoin('steps as st', 'sc.scheme_id', '=', 'st.scheme_id')
+  .where('sc.scheme_id', scheme_id)
+  .select('step_id', 'step_number', 'instructions', 'scheme_name')
+  .orderBy('step_number')
+
 }
 
 function add(scheme) { // EXERCISE D
